@@ -1,0 +1,26 @@
+.btn {
+  padding: 25px 10px;
+  border: 1px solid #b2b2b2;
+  color: var(--textColor);
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 1) 0%,
+    rgba(235, 235, 235, 1) 100%
+  );
+  border-radius: 5px;
+}
+
+.disabled {
+  opacity: 0.5;
+  pointer-events: none;
+  cursor: not-allowed;
+}
+
+.btn:hover {
+  cursor: pointer;
+  background: linear-gradient(
+    180deg,
+    rgba(235, 235, 235, 1) 0%,
+    rgba(255, 255, 255, 1) 100%
+  );
+}

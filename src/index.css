@@ -4,6 +4,7 @@
   font-weight: 400;
   font-synthesis: none;
   --textColor: #181818;
+  --gap: 45px;
 }
 
 body {

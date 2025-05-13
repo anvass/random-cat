@@ -1,0 +1,13 @@
+.loader {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  max-width: var(--subWrapperWidth);
+  margin-top: var(--gap);
+}
+
+.loader svg {
+  width: 100%;
+  max-width: 100px;
+}

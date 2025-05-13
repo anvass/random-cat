@@ -3,14 +3,15 @@ import Button from './components/Button/Button';
 import Checkbox from './components/Checkbox/Checkbox';
 import Wrapper from './components/Wrapper/Wrapper';
 import Image from './components/Image/Image';
+import Loader from './components/Loader/Loader';
 
 function App() {
   const [getCatButtonDisabled, setGetCatButtonDisabled] =
     useState<boolean>(true);
   const [catUrl, setCatUrl] = useState<string>('');
+  const [loading, setLoading] = useState<boolean>(false);
 
   const handleGetCatButtonClick = () => {
-    console.log('Click');
     fetchCatImage();
   };
 
@@ -24,6 +25,7 @@ function App() {
 
   const fetchCatImage = async () => {
     try {
+      setLoading(true);
       const response = await fetch(
         'https://api.thecatapi.com/v1/images/search'
       );
@@ -34,9 +36,10 @@ function App() {
       }
 
       setCatUrl(data[0].url);
-      console.log('catUrl', catUrl);
     } catch (err) {
       console.log(err);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -55,7 +58,13 @@ function App() {
         >
           <span>Get cat</span>
         </Button>
-        {catUrl ? <Image src={catUrl} alt="Random cat" /> : ''}
+        {loading ? (
+          <Loader></Loader>
+        ) : catUrl ? (
+          <Image src={catUrl} alt="Random cat" />
+        ) : (
+          ''
+        )}
       </Wrapper>
     </>
   );

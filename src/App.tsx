@@ -1,5 +1,6 @@
 import Button from './components/Button/Button';
 import Checkbox from './components/Checkbox/Checkbox';
+import Wrapper from './components/Wrapper/Wrapper';
 
 const handleClick = () => {
   console.log('Click');
@@ -16,11 +17,7 @@ const handleChangeRefresh = () => {
 function App() {
   return (
     <>
-      <Checkbox
-        label="Enabled"
-        checked
-        onChange={handleChangeEnabled}
-      ></Checkbox>
+      <Checkbox label="Enabled" onChange={handleChangeEnabled}></Checkbox>
       <Checkbox
         label="Auto-refresh every 5 seconds"
         onChange={handleChangeRefresh}

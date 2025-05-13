@@ -8,7 +8,7 @@ interface UseCatReturn {
 
 function useCat(): UseCatReturn {
   const [catUrl, setCatUrl] = useState<string>('');
-  const [isCatLoading, setIsCatLoading] = useState<boolean>(true);
+  const [isCatLoading, setIsCatLoading] = useState<boolean>(false);
 
   const fetchCat = useCallback(async () => {
     try {

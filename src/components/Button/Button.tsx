@@ -12,7 +12,7 @@ function Button({ disabled, onClick, children }: ButtonProps) {
     <button
       onClick={disabled ? undefined : onClick}
       disabled={disabled}
-      className={`${styles.btn} ${disabled ? styles.disabled : ''}`}
+      className={styles.btn}
     >
       {children}
     </button>

@@ -8,9 +8,10 @@
     rgba(235, 235, 235, 1) 100%
   );
   border-radius: 2px;
+  width: 100%;
 }
 
-.disabled {
+.btn:disabled {
   opacity: 0.5;
   pointer-events: none;
   cursor: not-allowed;

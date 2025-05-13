@@ -1,6 +1,6 @@
 # Генератор случайных котиков
 
-![build](https://github.com/anvass/wordle/actions/workflows/build.yml/badge.svg)
+![build](https://github.com/anvass/random-cat/actions/workflows/build.yml/badge.svg)
 
 Получение случайных котиков по API.
 

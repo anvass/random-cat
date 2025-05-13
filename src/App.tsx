@@ -4,56 +4,32 @@ import Checkbox from './components/Checkbox/Checkbox';
 import Wrapper from './components/Wrapper/Wrapper';
 import Image from './components/Image/Image';
 import Loader from './components/Loader/Loader';
+import useCat from './hooks/useCat';
 
 function App() {
-  const [getCatButtonDisabled, setGetCatButtonDisabled] =
-    useState<boolean>(true);
-  const [catUrl, setCatUrl] = useState<string>('');
-  const [loading, setLoading] = useState<boolean>(false);
-  const [refreshIsChecked, setRefreshIsChecked] = useState(false);
-
-  const handleChangeEnabled = () => {
-    setGetCatButtonDisabled(!getCatButtonDisabled);
-  };
-
-  const fetchCatImage = async () => {
-    try {
-      setLoading(true);
-      const response = await fetch(
-        'https://api.thecatapi.com/v1/images/search'
-      );
-      const data = await response.json();
-
-      if (!response.ok || !data.length) {
-        throw new Error('Failed to fetch cat image');
-      }
-
-      setCatUrl(data[0].url);
-    } catch (err) {
-      console.log(err);
-    } finally {
-      setLoading(false);
-    }
-  };
+  const [isRequestDisabled, setRequestDisabled] = useState<boolean>(true);
+  const [shouldRefresh, setShouldRefresh] = useState(false);
+  const { catUrl, isCatLoading, fetchCat } = useCat();
 
   const handleGetCatButtonClick = () => {
-    fetchCatImage();
+    fetchCat();
+  };
+
+  const handleChangeEnabled = (isChecked: boolean) => {
+    setRequestDisabled(!isChecked);
   };
 
   const handleChangeRefresh = (isChecked: boolean) => {
-    setRefreshIsChecked(isChecked);
+    setShouldRefresh(isChecked);
   };
 
   useEffect(() => {
-    if (refreshIsChecked) {
-      const interval = setInterval(() => {
-        console.log('test');
-        fetchCatImage();
-      }, 5000);
+    if (shouldRefresh) {
+      const interval = setInterval(fetchCat, 5000);
 
       return () => clearInterval(interval);
     }
-  }, [refreshIsChecked]);
+  }, [shouldRefresh, fetchCat]);
 
   return (
     <>
@@ -64,13 +40,10 @@ function App() {
           onChange={handleChangeRefresh}
         />
 
-        <Button
-          disabled={getCatButtonDisabled}
-          onClick={handleGetCatButtonClick}
-        >
+        <Button disabled={isRequestDisabled} onClick={handleGetCatButtonClick}>
           <span>Get cat</span>
         </Button>
-        {loading ? (
+        {isCatLoading ? (
           <Loader />
         ) : catUrl ? (
           <Image src={catUrl} alt="Random cat" />

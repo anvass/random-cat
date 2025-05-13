@@ -2,7 +2,7 @@ import styles from './Checkbox.module.css';
 
 interface CheckboxProps {
   checked?: boolean;
-  onChange?: () => void;
+  onChange?: (isChecked: boolean) => void;
   label?: string;
 }
 
@@ -11,7 +11,7 @@ function Checkbox({ checked, onChange = () => {}, label }: CheckboxProps) {
     <label className={styles.checkboxWrapper}>
       <input
         type="checkbox"
-        onChange={onChange}
+        onChange={(e) => onChange(e.target.checked)}
         className={styles.checkbox}
         defaultChecked={checked}
       />

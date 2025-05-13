@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Button from './components/Button/Button';
 import Checkbox from './components/Checkbox/Checkbox';
 import Wrapper from './components/Wrapper/Wrapper';
@@ -10,17 +10,10 @@ function App() {
     useState<boolean>(true);
   const [catUrl, setCatUrl] = useState<string>('');
   const [loading, setLoading] = useState<boolean>(false);
-
-  const handleGetCatButtonClick = () => {
-    fetchCatImage();
-  };
+  const [refreshIsChecked, setRefreshIsChecked] = useState(false);
 
   const handleChangeEnabled = () => {
     setGetCatButtonDisabled(!getCatButtonDisabled);
-  };
-
-  const handleChangeRefresh = () => {
-    console.log('Refresh');
   };
 
   const fetchCatImage = async () => {
@@ -43,14 +36,33 @@ function App() {
     }
   };
 
+  const handleGetCatButtonClick = () => {
+    fetchCatImage();
+  };
+
+  const handleChangeRefresh = (isChecked: boolean) => {
+    setRefreshIsChecked(isChecked);
+  };
+
+  useEffect(() => {
+    if (refreshIsChecked) {
+      const interval = setInterval(() => {
+        console.log('test');
+        fetchCatImage();
+      }, 5000);
+
+      return () => clearInterval(interval);
+    }
+  }, [refreshIsChecked]);
+
   return (
     <>
       <Wrapper>
-        <Checkbox label="Enabled" onChange={handleChangeEnabled}></Checkbox>
+        <Checkbox label="Enabled" onChange={handleChangeEnabled} />
         <Checkbox
           label="Auto-refresh every 5 seconds"
           onChange={handleChangeRefresh}
-        ></Checkbox>
+        />
 
         <Button
           disabled={getCatButtonDisabled}
@@ -59,12 +71,10 @@ function App() {
           <span>Get cat</span>
         </Button>
         {loading ? (
-          <Loader></Loader>
+          <Loader />
         ) : catUrl ? (
           <Image src={catUrl} alt="Random cat" />
-        ) : (
-          ''
-        )}
+        ) : null}
       </Wrapper>
     </>
   );

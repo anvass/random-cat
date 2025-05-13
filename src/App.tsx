@@ -17,15 +17,17 @@ const handleChangeRefresh = () => {
 function App() {
   return (
     <>
-      <Checkbox label="Enabled" onChange={handleChangeEnabled}></Checkbox>
-      <Checkbox
-        label="Auto-refresh every 5 seconds"
-        onChange={handleChangeRefresh}
-      ></Checkbox>
+      <Wrapper>
+        <Checkbox label="Enabled" onChange={handleChangeEnabled}></Checkbox>
+        <Checkbox
+          label="Auto-refresh every 5 seconds"
+          onChange={handleChangeRefresh}
+        ></Checkbox>
 
-      <Button disabled onClick={handleClick}>
-        <span>Get cat</span>
-      </Button>
+        <Button disabled onClick={handleClick}>
+          <span>Get cat</span>
+        </Button>
+      </Wrapper>
     </>
   );
 }
